@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNZA GPA Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .grade-A-plus { background-color: #059669; }
+        .grade-A { background-color: #10b981; }
+        .grade-B-plus { background-color: #22c55e; }
+        .grade-B { background-color: #84cc16; }
+        .grade-C-plus { background-color: #eab308; }
+        .grade-C { background-color: #f59e0b; }
+        .grade-D { background-color: #ef4444; }
+        .grade-F { background-color: #dc2626; }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header -->
+        <header class="bg-blue-800 text-white rounded-lg shadow-md p-6 mb-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold">UNZA GPA Calculator</h1>
+                    <p class="mt-2">University of Zambia - Quality Assurance Directorate</p>
+                </div>
+                <div class="bg-white p-2 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l-9 5m9-5v6" />
+                    </svg>
+                </div>
+            </div>
+        </header>
+
+        <!-- Tabs -->
+        <div class="flex bg-white rounded-t-lg shadow-md overflow-hidden mb-1">
+            <button id="bulk-input-tab" class="tab-button active flex-1 py-4 font-medium text-center">Bulk Input</button>
+            <button id="individual-input-tab" class="tab-button flex-1 py-4 font-medium text-center bg-gray-200">Individual Courses</button>
+        </div>
+
+        <!-- Main Content -->
+        <main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Input Section -->
+            <div class="lg:col-span-2 bg-white rounded-lg shadow-md p-6 rounded-tl-none">
+                <!-- Bulk Input Section -->
+                <div id="bulk-input-section">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Bulk Course Input</h2>
+                    
+                    <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Half Courses -->
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-medium text-gray-700 mb-4">Half Courses (15 credits each)</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-gray-700 mb-2">Number of A+ grades</label>
+                                    <input type="number" min="0" class="half-course-count w-full p-2 border rounded" data-grade="5.00" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2">Number of A grades</label>
+                                    <input type="number" min="0" class="half-course-count w-full p-2 border rounded" data-grade="4.00" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2">Number of B+ grades</label>
+                                    <input type="number" min="0" class="half-course-count w-full p-2 border rounded" data-grade="3.50" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2">Number of B grades</label>
+                                    <input type="number" min="0" class="half-course-count w-full p-2 border rounded" data-grade="3.00" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2">Number of C+ grades</label>
+                                    <input type="number" min="0" class="half-course-count w-full p-2 border rounded" data-grade="2.37" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2">Number of C/S grades</label>
+                                    <input type="number" min="0" class="half-course-count w-full p-2 border rounded" data-grade="1.00" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2">Number of F grades</label>
+                                    <input type="number" min="0" class="half-course-count w-full p-2 border rounded" data-grade="0.00" placeholder="0">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Full Courses -->
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-medium text-gray-700 mb-4">Full Courses (30 credits each)</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-gray-700 mb-2">Number of A+ grades</label>
+                                    <input type="number" min="0" class="full-course-count w-full p-2 border rounded" data-grade="5.00" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2">Number of A grades</label>
+                                    <input type="number" min="0" class="full-course-count w-full p-2 border rounded" data-grade="4.00" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2">Number of B+ grades</label>
+                                    <input type="number" min="0" class="full-course-count w-full p-2 border rounded" data-grade="3.50" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2">Number of B grades</label>
+                                    <input type="number" min="0" class="full-course-count w-full p-2 border rounded" data-grade="3.00" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2">Number of C+ grades</label>
+                                    <input type="number" min="0" class="full-course-count w-full p-2 border rounded" data-grade="2.37" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2">Number of C/S grades</label>
+                                    <input type="number" min="0" class="full-course-count w-full p-2 border rounded" data-grade="1.00" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2">Number of F grades</label>
+                                    <input type="number" min="0" class="full-course-count w-full p-2 border rounded" data-grade="0.00" placeholder="0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Individual Input Section (Hidden by Default) -->
+                <div id="individual-input-section" class="hidden">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Individual Course Input</h2>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">Study Period</label>
+                        <div class="flex space-x-4">
+                            <button id="yearly-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md font-medium">Yearly GPA</button>
+                            <button id="cumulative-btn" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md font-medium">Cumulative GPA</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="p-3 text-left">Course Code</th>
+                                    <th class="p-3 text-left">Credits</th>
+                                    <th class="p-3 text-left">Grade</th>
+                                    <th class="p-3 text-left">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="courses-table">
+                                <tr>
+                                    <td class="p-3"><input type="text" class="course-code w-full p-2 border rounded" placeholder="e.g., PHY1010"></td>
+                                    <td class="p-3"><input type="number" class="course-credit w-full p-2 border rounded" placeholder="e.g., 15" min="1"></td>
+                                    <td class="p-3">
+                                        <select class="course-grade w-full p-2 border rounded">
+                                            <option value="5.00">A+ (Distinction)</option>
+                                            <option value="4.00">A (Distinction)</option>
+                                            <option value="3.50">B+ (Meritorious)</option>
+                                            <option value="3.00">B (Credit)</option>
+                                            <option value="2.37">C+ (Credit)</option>
+                                            <option value="1.00">C (Pass)</option>
+                                            <option value="1.00">S (Satisfactory)</option>
+                                            <option value="0.00" selected>D+/D/LT/NE/DF/WP/IN (Fail)</option>
+                                        </select>
+                                    </td>
+                                    <td class="p-3">
+                                        <button class="remove-course text-red-500 hover:text-red-700">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <button id="add-course" class="flex items-center text-blue-600 font-medium">
+                            <i class="fas fa-plus-circle mr-2"></i> Add Another Course
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="mt-8">
+                    <button id="calculate-btn" class="w-full bg-blue-600 text-white py-3 px-4 rounded-md font-medium hover:bg-blue-700 transition duration-300">
+                        Calculate GPA
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Results Section -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Results</h2>
+                
+                <div id="results" class="fade-in">
+                    <div class="text-center py-12 text-gray-400">
+                        <i class="fas fa-calculator text-5xl mb-4"></i>
+                        <p>Enter your course information and click calculate to see your results</p>
+                    </div>
+                </div>
+                
+                <div class="mt-8">
+                    <h3 class="text-lg font-medium text-gray-700 mb-4">Grade Guide</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <span class="grade-A-plus w-6 h-6 rounded-full mr-2"></span>
+                            <span>A+ (5.00) - Distinction</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="grade-A w-6 h-6 rounded-full mr-2"></span>
+                            <span>A (4.00) - Distinction</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="grade-B-plus w-6 h-6 rounded-full mr-2"></span>
+                            <span>B+ (3.50) - Meritorious</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="grade-B w-6 h-6 rounded-full mr-2"></span>
+                            <span>B (3.00) - Credit</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="grade-C-plus w-6 h-6 rounded-full mr-2"></span>
+                            <span>C+ (2.37) - Credit</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="grade-C w-6 h-6 rounded-full mr-2"></span>
+                            <span>C (1.00) - Pass</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="grade-F w-6 h-6 rounded-full mr-2"></span>
+                            <span>F (0.00) - Fail</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Information Section -->
+        <div class="mt-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Degree Classification</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-lg">
+                    <h3 class="font-bold">Distinction</h3>
+                    <p class="text-2xl mt-2">≥ 3.75</p>
+                </div>
+                <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-lg">
+                    <h3 class="font-bold">Merit</h3>
+                    <p class="text-2xl mt-2">3.25 - 3.74</p>
+                </div>
+                <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white p-4 rounded-lg">
+                    <h3 class="font-bold">Credit</h3>
+                    <p class="text-2xl mt-2">2.68 - 3.24</p>
+                </div>
+                <div class="bg-gradient-to-r from-red-500 to-red-600 text-white p-4 rounded-lg">
+                    <h3 class="font-bold">Pass</h3>
+                    <p class="text-2xl mt-2">< 2.68</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const bulkInputTab = document.getElementById('bulk-input-tab');
+            const individualInputTab = document.getElementById('individual-input-tab');
+            const bulkInputSection = document.getElementById('bulk-input-section');
+            const individualInputSection = document.getElementById('individual-input-section');
+            
+            bulkInputTab.addEventListener('click', function() {
+                bulkInputTab.classList.add('active');
+                bulkInputTab.classList.remove('bg-gray-200');
+                individualInputTab.classList.remove('active');
+                individualInputTab.classList.add('bg-gray-200');
+                bulkInputSection.classList.remove('hidden');
+                individualInputSection.classList.add('hidden');
+            });
+            
+            individualInputTab.addEventListener('click', function() {
+                individualInputTab.classList.add('active');
+                individualInputTab.classList.remove('bg-gray-200');
+                bulkInputTab.classList.remove('active');
+                bulkInputTab.classList.add('bg-gray-200');
+                individualInputSection.classList.remove('hidden');
+                bulkInputSection.classList.add('hidden');
+            });
+            
+            // Add course row (for individual input)
+            document.getElementById('add-course').addEventListener('click', function() {
+                const coursesTable = document.getElementById('courses-table');
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td class="p-3"><input type="text" class="course-code w-full p-2 border rounded" placeholder="e.g., PHY1010"></td>
+                    <td class="p-3"><input type="number" class="course-credit w-full p-2 border rounded" placeholder="e.g., 15" min="1"></td>
+                    <td class="p-3">
+                        <select class="course-grade w-full p-2 border rounded">
+                            <option value="5.00">A+ (Distinction)</option>
+                            <option value="4.00">A (Distinction)</option>
+                            <option value="3.50">B+ (Meritorious)</option>
+                            <option value="3.00">B (Credit)</option>
+                            <option value="2.37">C+ (Credit)</option>
+                            <option value="1.00">C (Pass)</option>
+                            <option value="1.00">S (Satisfactory)</option>
+                            <option value="0.00" selected>D+/D/LT/NE/DF/WP/IN (Fail)</option>
+                        </select>
+                    </td>
+                    <td class="p-3">
+                        <button class="remove-course text-red-500 hover:text-red-700">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                coursesTable.appendChild(newRow);
+                
+                // Add event listener to the new remove button
+                newRow.querySelector('.remove-course').addEventListener('click', function() {
+                    if (coursesTable.children.length > 1) {
+                        coursesTable.removeChild(newRow);
+                    }
+                });
+            });
+            
+            // Add event listeners to existing remove buttons
+            document.querySelectorAll('.remove-course').forEach(button => {
+                button.addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    if (document.getElementById('courses-table').children.length > 1) {
+                        row.parentNode.removeChild(row);
+                    }
+                });
+            });
+            
+            // Toggle between yearly and cumulative GPA
+            const yearlyBtn = document.getElementById('yearly-btn');
+            const cumulativeBtn = document.getElementById('cumulative-btn');
+            
+            yearlyBtn.addEventListener('click', function() {
+                yearlyBtn.classList.remove('bg-gray-200', 'text-gray-700');
+                yearlyBtn.classList.add('bg-blue-600', 'text-white');
+                cumulativeBtn.classList.remove('bg-blue-600', 'text-white');
+                cumulativeBtn.classList.add('bg-gray-200', 'text-gray-700');
+            });
+            
+            cumulativeBtn.addEventListener('click', function() {
+                cumulativeBtn.classList.remove('bg-gray-200', 'text-gray-700');
+                cumulativeBtn.classList.add('bg-blue-600', 'text-white');
+                yearlyBtn.classList.remove('bg-blue-600', 'text-white');
+                yearlyBtn.classList.add('bg-gray-200', 'text-gray-700');
+            });
+            
+            // Calculate GPA
+            document.getElementById('calculate-btn').addEventListener('click', function() {
+                let totalCredits = 0;
+                let totalGradePoints = 0;
+                
+                // Check which input method is active
+                if (!individualInputSection.classList.contains('hidden')) {
+                    // Individual course input method
+                    let isValid = true;
+                    
+                    // Get all course rows
+                    const courses = document.querySelectorAll('#courses-table tr');
+                    
+                    courses.forEach(course => {
+                        const creditInput = course.querySelector('.course-credit');
+                        const gradeSelect = course.querySelector('.course-grade');
+                        
+                        // Validate inputs
+                        if (!creditInput.value || creditInput.value <= 0) {
+                            creditInput.classList.add('border-red-500');
+                            isValid = false;
+                        } else {
+                            creditInput.classList.remove('border-red-500');
+                            
+                            const credits = parseFloat(creditInput.value);
+                            const gradePoint = parseFloat(gradeSelect.value);
+                            
+                            totalCredits += credits;
+                            totalGradePoints += credits * gradePoint;
+                        }
+                    });
+                    
+                    if (!isValid) {
+                        alert('Please enter valid credit values for all courses.');
+                        return;
+                    }
+                } else {
+                    // Bulk input method
+                    const halfCourseInputs = document.querySelectorAll('.half-course-count');
+                    const fullCourseInputs = document.querySelectorAll('.full-course-count');
+                    
+                    // Process half courses (15 credits each)
+                    halfCourseInputs.forEach(input => {
+                        const count = parseInt(input.value) || 0;
+                        const gradePoint = parseFloat(input.getAttribute('data-grade'));
+                        const credits = 15 * count;
+                        
+                        totalCredits += credits;
+                        totalGradePoints += credits * gradePoint;
+                    });
+                    
+                    // Process full courses (30 credits each)
+                    fullCourseInputs.forEach(input => {
+                        const count = parseInt(input.value) || 0;
+                        const gradePoint = parseFloat(input.getAttribute('data-grade'));
+                        const credits = 30 * count;
+                        
+                        totalCredits += credits;
+                        totalGradePoints += credits * gradePoint;
+                    });
+                }
+                
+                if (totalCredits === 0) {
+                    alert('Please add at least one course with valid credits.');
+                    return;
+                }
+                
+                // Calculate GPA
+                const gpa = totalGradePoints / totalCredits;
+                
+                // Determine degree classification
+                let classification = '';
+                let classificationColor = '';
+                
+                if (gpa >= 3.75) {
+                    classification = 'Distinction';
+                    classificationColor = 'text-green-600';
+                } else if (gpa >= 3.25) {
+                    classification = 'Merit';
+                    classificationColor = 'text-blue-600';
+                } else if (gpa >= 2.68) {
+                    classification = 'Credit';
+                    classificationColor = 'text-yellow-600';
+                } else {
+                    classification = 'Pass';
+                    classificationColor = 'text-red-600';
+                }
+                
+                // Display results
+                const resultsDiv = document.getElementById('results');
+                resultsDiv.innerHTML = `
+                    <div class="fade-in">
+                        <div class="text-center mb-6">
+                            <div class="text-5xl font-bold ${classificationColor}">${gpa.toFixed(2)}</div>
+                            <p class="text-gray-600 mt-2">Grade Point Average</p>
+                        </div>
+                        
+                        <div class="bg-gray-100 p-4 rounded-lg mb-6">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-700">Total Credits:</span>
+                                <span class="font-medium">${totalCredits}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-700">Total Grade Points:</span>
+                                <span class="font-medium">${totalGradePoints.toFixed(2)}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center p-4 rounded-lg border-2 ${classificationColor.replace('text', 'border')}">
+                            <p class="text-sm text-gray-600">Degree Classification</p>
+                            <p class="text-xl font-bold ${classificationColor}">${classification}</p>
+                        </div>
+                    </div>
+                `;
+            });
+        });
+    </script>
+</body>
+</html>
