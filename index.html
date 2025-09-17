@@ -25,8 +25,8 @@
         .grade-F { background-color: #dc2626; }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen font-sans">
-    <div class="container mx-auto px-4 py-8 max-w-6xl">
+<body class="bg-gray-100 min-h-screen font-sans flex flex-col">
+    <div class="container mx-auto px-4 py-8 max-w-6xl flex-grow">
         <!-- Header -->
         <header class="bg-blue-800 text-white rounded-lg shadow-md p-6 mb-8">
             <div class="flex items-center justify-between">
@@ -228,8 +228,18 @@
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-4 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>Developed by Dennis Chipman © <span id="current-year"></span>. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            
             // Calculate GPA
             document.getElementById('calculate-btn').addEventListener('click', function() {
                 let totalCredits = 0;
